@@ -1,66 +1,148 @@
     var questions = [
-        q1 = {
-            query: "What is the longest river in the world",
-            choices: ["amazon", "b", "c", "d", "e"],
-            answer: "c"
+        q0 = {
+            query: "Which of the following is a single global function defined in the jQuery library?",
+            choices: ["jQuery()", "$()", "Queryanalysis()", "None of the mentioned"],
+            answer: "jQuery()"
         },
 
-        q2 = {
-            query: "hai",
-            choices: ["a", "b", "c", "d", "e"],
-            answer: "c"
-        }
+        q1 = {
+            query: "Which of the following is an equivalent replacement of $(document).ready(f)?",
+            choices: ["jQuery(f)", "$(f)", "#(f)", "None of the mentioned"],
+            answer: "$(f)"
+        },
+
+         q2 = {
+            query: "How can you get the total number of arguments passed to a function?",
+            choices: ["Using args.length property", "Using arguments.length property", "Both", "None of the mentioned"],
+            answer: "Using arguments.length property"
+        },
+
+         q3 = {
+            query: "Which built-in method sorts the elements of an array?",
+            choices: ["changeOrder(order)", "order()", "sort()", "None of the mentioned"],
+            answer: "sort()"
+        },
+
+         q4 = {
+            query: "Which of the following jQuery method finds all sibling elements in front of the current element?",
+            choices: ["parents( selector )", "prevAll( selector)", "siblings( selector )", "None of the mentioned"],
+            answer: "prevAll( selector)"
+        },
+        
 
 
     ];
 
+    var displayElement, display, minutes, seconds, timerId;
+    var totalTimeInSec = 120;
+    var score = 0;
 
     $(document).ready(function() {
         var form = 0;
 
 
         function startGame() {
+            clearScreen();
             setQuestions();
+            setSubmitButton();
+            // setTimerDisplay();
         }
 
+        function setSubmitButton() {
+            $(".content").append('<button type="button" class="btn btn-primary submit">Submit</button>');
+
+        }
+
+        $(document).on("click", ".submit", function() {
+            console.log("submit called");
+            showScoreCard();
+        });
+
+        function clearScreen() {
+            $(".content").html(" ");
+        }
+
+        function setTimerDisplay() {
+            displayElement = $("<div>").attr("id", "display");
+            console.log(displayElement)
+            $(".content").append(displayElement);
+
+            timerId = setInterval(decrement, 1000);
+
+        }
+
+
+        function decrement() {
+            console.log("Timer called");
+            minutes = Math.floor(totalTimeInSec / 60);
+            seconds = totalTimeInSec % 60;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            displayElement.text(minutes + ":" + seconds);
+
+            if (totalTimeInSec == 0) {
+                clearInterval(timerId);
+                showScoreCard();
+            } else {
+                totalTimeInSec--;
+
+            }
+
+
+
+        }
+
+        function showScoreCard() {
+            evaluate();
+            // clearScreen();
+            $(".content").append("Total Score:" + score);
+        }
+
+        function evaluate() {
+            var selections = $("input[type ='radio']:checked");
+            for (var i = 0; i < selections.length; i++) {
+                   var questionNo = selections[i].name;
+                   var selectedAnswer =  selections[i].value;
+                   var correctAnswer = questions[questionNo].answer;
+                   if(correctAnswer == selectedAnswer){
+                        score++;
+                   }
+            }
+
+            
+        }
 
         function setQuestions() {
             console.log("Setting questionnaire");
             form = $("<form id='quiz'></form>");
             console.log(form);
             addQuestions();
-            $(".content").html(form);
+            $(".content").append(form);
+            form.append("<div class='form-group'>");
         }
 
 
-        /*
-<div class="form-check form-check-inline">
-  <label class="form-check-label">
-    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> 1
-  </label>
-</div>
-        */
+ 
 
         function addQuestions() {
             console.log("Adding questions to the form");
             var question = "";
-            // form.append("<div class='form-group'>"); form-check-inline
-            for (var i = 0; i < questions.length; i++) {
+             for (var i = 0; i < questions.length; i++) {
                 var formGroup = $("<div class='form-check form-check-inline'>");
                 var questionObj = questions[i];
-                var label = $("<label class='form-check-label'>").text(questionObj.query);
-                var id = "q" + i;
-                label.append("</br>");
+                var label = $("<label class='form-check-label col-sm-12' >").text(questionObj.query);
+                label.append("</br>");;
+                var name = i;
                 var choices = questionObj.choices;
                 for (var j = 0; j < choices.length; j++) {
-                    var choiceId = id + 'c' + j;
-                    var choice = $("<input id='" + choiceId + "' class='form-check-input form-check-inline' name='" + id + "' type='radio' value='" + choices[j] + "'>");
-                    label.append(choice).append(choices[j]);
-                }
+                    var newDiv = $('<div class = "col-sm-3">');
+                    var choice = $("<input class='form-check-input' name='" + name + "' type='radio' value='" + choices[j] + "'/>");
+                    newDiv.append(choice).append(choices[j]);
 
-                /* formGroup.append("<input id=" + id + "  class = 'form-check-input form-check-inline ' type='radio'>").append(questions[i].choices[1]);
-                formGroup.append("<input id=" + id + "  class = 'form-check-input form-check-inline' type='radio'>");
-*/
+                    label.append(newDiv);
+                }
+ 
                 form.append("</br>");
                 form.append(label);
 
@@ -69,10 +151,12 @@
 
         }
 
-        $('#quiz :input :radio').on('change', function() {
-            console.log("changed ...");
-            alert("hhh" + $(":input :radio :checked").val());
-        })
+      /*  $(document).on('change', "input[type ='radio']:checked", function(event) {
+
+
+
+            //alert("hhh" + $(":input :radio :checked").val());
+        })*/
 
         $(".start").click(function() {
             console.log("Starting the game");
