@@ -15,35 +15,27 @@ h1 {
 }
 
 p {
-    font-family: 'Rock Salt', cursive;
-    font-family: 'Permanent Marker', cursive;
-    font-family: 'Lakki Reddy', cursive;
-    font-size: 20px;
-    color: #3B5998;
+   
 }
 
 #country {
     color: #3B5998;
 }
 
-body {
-    background-image: url('../images/map.svg');
-}
-
+ 
 .content {
     padding-top: 30px;
+    background-color: black;
+    opacity: 0.5;
+
 }
 
-.man-pic {
-    padding-top: 120px;
-}
+ 
 
-.nav-bar,
-.top {
-    text-align: center;
-    background-color: #3B5998;
-}
+body{
+    background-image: url("../images/background.jpg");
+    color :white;
+       font-family: 'Rock Salt', cursive;
+    font-family: 'Permanent Marker', cursive;
 
-.aside{
-    padding : 20px;
 }

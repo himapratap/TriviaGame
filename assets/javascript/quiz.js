@@ -11,31 +11,31 @@
             answer: "$(f)"
         },
 
-         q2 = {
+        q2 = {
             query: "How can you get the total number of arguments passed to a function?",
             choices: ["Using args.length property", "Using arguments.length property", "Both", "None of the mentioned"],
             answer: "Using arguments.length property"
         },
 
-         q3 = {
+        q3 = {
             query: "Which built-in method sorts the elements of an array?",
             choices: ["changeOrder(order)", "order()", "sort()", "None of the mentioned"],
             answer: "sort()"
         },
 
-         q4 = {
+        q4 = {
             query: "Which of the following jQuery method finds all sibling elements in front of the current element?",
             choices: ["parents( selector )", "prevAll( selector)", "siblings( selector )", "None of the mentioned"],
             answer: "prevAll( selector)"
         },
-        
+
 
 
     ];
 
     var displayElement, display, minutes, seconds, timerId;
     var totalTimeInSec = 120;
-    var score = 0;
+    var incorrect =0 ,correct =0,unanswered = 0,answered= 0;
 
     $(document).ready(function() {
         var form = 0;
@@ -95,22 +95,32 @@
 
         function showScoreCard() {
             evaluate();
-            // clearScreen();
-            $(".content").append("Total Score:" + score);
+            clearScreen();
+            var unanswered = questions.length - answered;
+            $(".content").append(" <p> Correct answers :" + correct + " </p>");
+
+            $(".content").append(" <p> Uncorrect answers:" + incorrect  + " </p>");
+
+            $(".content").append(" <p> Unanswered answers:" + unanswered  + " </p>");
+
         }
 
         function evaluate() {
             var selections = $("input[type ='radio']:checked");
+            console.log( " selections " +selections);
             for (var i = 0; i < selections.length; i++) {
-                   var questionNo = selections[i].name;
-                   var selectedAnswer =  selections[i].value;
-                   var correctAnswer = questions[questionNo].answer;
-                   if(correctAnswer == selectedAnswer){
-                        score++;
-                   }
+                var questionNo = selections[i].name;
+                var selectedAnswer = selections[i].value;
+                var correctAnswer = questions[questionNo].answer;
+                if (correctAnswer == selectedAnswer) {
+                    correct++;
+                }else{
+                    incorrect ++;
+                }
+                answered ++ ;
             }
 
-            
+
         }
 
         function setQuestions() {
@@ -123,12 +133,12 @@
         }
 
 
- 
+
 
         function addQuestions() {
             console.log("Adding questions to the form");
             var question = "";
-             for (var i = 0; i < questions.length; i++) {
+            for (var i = 0; i < questions.length; i++) {
                 var formGroup = $("<div class='form-check form-check-inline'>");
                 var questionObj = questions[i];
                 var label = $("<label class='form-check-label col-sm-12' >").text(questionObj.query);
@@ -142,7 +152,7 @@
 
                     label.append(newDiv);
                 }
- 
+
                 form.append("</br>");
                 form.append(label);
 
@@ -151,12 +161,12 @@
 
         }
 
-      /*  $(document).on('change', "input[type ='radio']:checked", function(event) {
+        /*  $(document).on('change', "input[type ='radio']:checked", function(event) {
 
 
 
-            //alert("hhh" + $(":input :radio :checked").val());
-        })*/
+              //alert("hhh" + $(":input :radio :checked").val());
+          })*/
 
         $(".start").click(function() {
             console.log("Starting the game");
