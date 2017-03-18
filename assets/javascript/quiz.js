@@ -1,30 +1,30 @@
     var questions = [
         q0 = {
-            query: "Which of the following is a single global function defined in the jQuery library?",
+            query: "1. Which of the following is a single global function defined in the jQuery library?",
             choices: ["jQuery()", "$()", "Queryanalysis()", "None of the mentioned"],
             answer: "jQuery()"
         },
 
         q1 = {
-            query: "Which of the following is an equivalent replacement of $(document).ready(f)?",
+            query: "2. Which of the following is an equivalent replacement of $(document).ready(f)?",
             choices: ["jQuery(f)", "$(f)", "#(f)", "None of the mentioned"],
             answer: "$(f)"
         },
 
         q2 = {
-            query: "How can you get the total number of arguments passed to a function?",
+            query: "3. How can you get the total number of arguments passed to a function?",
             choices: ["Using args.length property", "Using arguments.length property", "Both", "None of the mentioned"],
             answer: "Using arguments.length property"
         },
 
         q3 = {
-            query: "Which built-in method sorts the elements of an array?",
+            query: "4. Which built-in method sorts the elements of an array?",
             choices: ["changeOrder(order)", "order()", "sort()", "None of the mentioned"],
             answer: "sort()"
         },
 
         q4 = {
-            query: "Which of the following jQuery method finds all sibling elements in front of the current element?",
+            query: "5. Which of the following jQuery method finds all sibling elements in front of the current element?",
             choices: ["parents( selector )", "prevAll( selector)", "siblings( selector )", "None of the mentioned"],
             answer: "prevAll( selector)"
         },
@@ -45,7 +45,7 @@
             clearScreen();
             setQuestions();
             setSubmitButton();
-            // setTimerDisplay();
+            setTimerDisplay();
         }
 
         function setSubmitButton() {
@@ -63,7 +63,7 @@
         }
 
         function setTimerDisplay() {
-            displayElement = $("<div>").attr("id", "display");
+            displayElement = $("<div>").attr("id", "display").addClass("text-right");
             console.log(displayElement)
             $(".content").append(displayElement);
 
@@ -79,7 +79,7 @@
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            displayElement.text(minutes + ":" + seconds);
+            displayElement.text("Time remaining: " +minutes + ":" + seconds);
 
             if (totalTimeInSec == 0) {
                 clearInterval(timerId);
@@ -97,9 +97,9 @@
             evaluate();
             clearScreen();
             var unanswered = questions.length - answered;
-            $(".content").append(" <p> Correct answers :" + correct + " </p>");
+            $(".content").addClass("text-center").append(" <p> Correct answers :" + correct + " </p>");
 
-            $(".content").append(" <p> Uncorrect answers:" + incorrect  + " </p>");
+            $(".content").append(" <p> Incorrect answers:" + incorrect  + " </p>");
 
             $(".content").append(" <p> Unanswered answers:" + unanswered  + " </p>");
 

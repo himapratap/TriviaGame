@@ -14,27 +14,36 @@ h1 {
     margin: 0 auto;
 }
 
-p {
-   
-}
+#display{     padding-right: 90px;     color : green; }
 
-#country {
-    color: #3B5998;
-}
 
  
 .content {
     padding-top: 30px;
     background-color: black;
     opacity: 0.5;
+     line-height: 15px;
+ }
 
-}
+ label{
+        border : solid 1px black ;
+        margin: 10px 0px;
+ }
 
- 
+ input[type = radio]{
+
+    padding : 10px 0px;
+ }
+
+ button{
+    margin : 30px 10px ;
+ }
 
 body{
     background-image: url("../images/background.jpg");
-    color :white;
+     color :white;
+          line-height: 15px;
+
        font-family: 'Rock Salt', cursive;
     font-family: 'Permanent Marker', cursive;
 
